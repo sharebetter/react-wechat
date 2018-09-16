@@ -11,12 +11,12 @@ class Authroute extends React.Component{
         }
     }
     componentDidMount () {
-        axios.get('/user/userInfo').then(res=>{
-            if(res.status == '200'){
-                console.log(res.data)
-            }
-        })
-        console.log(this.props.history)
+        // axios.get('/user/userInfo').then(res=>{
+        //     if(res.status == '200'){
+        //         console.log(res.data)
+        //     }
+        // })
+        // console.log(this.props.history)
     }
     render () {
         return null;

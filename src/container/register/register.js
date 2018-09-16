@@ -1,8 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Logo from '../../component/logo/logo';
 import './register.css';
 import {Button, InputItem, WhiteSpace, Radio, Flex, List} from 'antd-mobile';
+import {register} from '../../redux/user.redux.js';
 const RadioItem = Radio.RadioItem;
+@connect(
+    state => state.user,
+    {register}
+)
 
 class Register extends React.Component{
     constructor(props){
@@ -14,7 +20,7 @@ class Register extends React.Component{
                 repass:'',
                 identity:'Niuren'
             },
-            loginTips:''
+            registTips:''
         }
     }
 
@@ -26,32 +32,40 @@ class Register extends React.Component{
         })
     }
     doRegister () {
-        if(this.state.userInfo.pass !== this.state.userInfo.repass && this.state.userInfo.pass.length > 0){
+        // if(this.state.userInfo.pass !== this.state.userInfo.repass && this.state.userInfo.pass.length > 0){
+        //     this.setState({
+        //         registTips:'两次密码不一致！'
+        //     })
+        //     this.showregistTips()
+        //     return;
+        // }
+        // if(this.state.userInfo.username.length == 0){
+        //     this.setState({
+        //         registTips:'请输入用户名！'
+        //     })
+        //     this.showregistTips()
+        //     return;
+        // }
+        // if(this.state.userInfo.pass.length == 0 || this.state.userInfo.repass.length == 0){
+        //     this.setState({
+        //         registTips:'请输入密码！'
+        //     })
+        //     this.showregistTips()
+        //     return;
+        // }
+        this.props.register(this.state.userInfo.username,this.state.userInfo.pass,this.state.userInfo.repass,this.state.userInfo.identity);
+        if(this.props.msg){
             this.setState({
-                loginTips:'两次密码不一致！'
+                registTips: this.props.msg
+            },()=>{
+                this.showregistTips();
             })
-            this.showLoginTips()
-            return;
-        }
-        if(this.state.userInfo.username.length == 0){
-            this.setState({
-                loginTips:'请输入用户名！'
-            })
-            this.showLoginTips()
-            return;
-        }
-        if(this.state.userInfo.pass.length == 0 || this.state.userInfo.repass.length == 0){
-            this.setState({
-                loginTips:'请输入密码！'
-            })
-            this.showLoginTips()
-            return;
         }
     }
-    showLoginTips () {
+    showregistTips () {
         var tips = setTimeout(() => {
             this.setState({
-                loginTips: ''
+                registTips: ''
             })
          clearTimeout(tips);
         }, 1500);
@@ -69,13 +83,13 @@ class Register extends React.Component{
             <div className='registerTop'>
                 <Logo/>
                 <h2>用户注册</h2>
-                <p className='loginTips'>{this.state.loginTips}</p>
+                {this.state.registTips ? <p className='registTips'>{this.state.registTips}</p>:null}
                 <WhiteSpace/>
                 <InputItem placeholder="请输入用户名" onChange={(val)=>this.userInput('username',val)}>用户名：</InputItem>
                 <WhiteSpace/>
-                <InputItem placeholder="请输入密码" onChange={(val)=>this.userInput('pass',val)}>密码：</InputItem>
+                <InputItem placeholder="请输入密码" onChange={(val)=>this.userInput('pass',val)} type='password'>密码：</InputItem>
                 <WhiteSpace/>
-                <InputItem placeholder="确认密码" onChange={(val)=>this.userInput('repass',val)}>确认密码：</InputItem>
+                <InputItem placeholder="确认密码" onChange={(val)=>this.userInput('repass',val)} type='password'>确认密码：</InputItem>
                 <WhiteSpace/>
                 <List>
                     {data.map(i => (
