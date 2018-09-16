@@ -16,11 +16,11 @@ const store = createStore(reducers,compose(
 ReactDOM.render(
     (<Provider store={store}>
         <BrowserRouter>
-            <div>
+            <Switch>
                 <Route path='/' exact component={Login}></Route>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
-            </div>
+            </Switch>
         </BrowserRouter>
     </Provider>),
     document.getElementById('root')

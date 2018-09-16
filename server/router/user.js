@@ -1,4 +1,6 @@
 const express = require('express');
+const utils = require('utility');
+
 const Router = express.Router();
 const model =  require('../model/user.js');
 const User = model.getModel('user');
@@ -10,8 +12,8 @@ Router.post('/register',(req,res)=>{
         }else{
             User.create({
                 user:userInfo.user,
-                pwd:userInfo.pwd,
-                identity:userInfo.type
+                pwd: md5Pwd(userInfo.pwd),
+                identity:userInfo.identity
             },(err,create_result)=>{
                 if(err){
                     return res.json({code:1,msg:'后端出错'})
@@ -24,5 +26,9 @@ Router.post('/register',(req,res)=>{
     })
 
 })
-
+function md5Pwd (pwd) {
+    let salt = 'password';
+    pwd = salt + pwd;
+    return utils.md5(pwd);
+}
 module.exports = Router;

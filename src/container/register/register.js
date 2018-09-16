@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/logo';
 import './register.css';
 import {Button, InputItem, WhiteSpace, Radio, Flex, List} from 'antd-mobile';
@@ -81,6 +82,7 @@ class Register extends React.Component{
         let identity = this.state.userInfo.identity;
         return (
             <div className='registerTop'>
+                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} />:null}
                 <Logo/>
                 <h2>用户注册</h2>
                 {this.state.registTips ? <p className='registTips'>{this.state.registTips}</p>:null}

@@ -1,3 +1,9 @@
 .top{
     text-align: center;
 }
+.loginTips{
+    color:#f50;
+    text-align: left;
+    font-size: 14px;
+    text-indent: 18px;
+}
