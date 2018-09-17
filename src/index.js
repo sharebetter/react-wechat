@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Redirect,Switch } from 'react-router-dom'
 import Login from './container/login/login';
 import Register from './container/register/register';
+import BossInfo from './container/userInfo/bossInfo';
+import JobSeekerInfo from './container/userInfo/jobSeekerInfo';
 
 import reducers from './reducer';
 import './config';
@@ -20,6 +22,8 @@ ReactDOM.render(
                 <Route path='/' exact component={Login}></Route>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
+                <Route path="/bossInfo" component={BossInfo} />
+                <Route path="/jobSeekerInfo" component={JobSeekerInfo} />
             </Switch>
         </BrowserRouter>
     </Provider>),

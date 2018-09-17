@@ -1,9 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/logo';
 import './login.css';
 import {Button,InputItem,WhiteSpace} from 'antd-mobile';
 import { router } from 'sw-toolbox';
 import Authroute from '../../component/authroute/authroute';
+import { login } from '../../redux/user.redux.js';
+
+@connect (
+    state => state.user,
+    {login}
+)
 class Login extends React.Component{
 
     constructor (props) {
@@ -22,14 +30,24 @@ class Login extends React.Component{
     doLogin () {
         let userInfo = this.state.userInfo;
         if(!(userInfo.user.length > 0)){
-            this.setState({
-                loginTips:'请输入用户名'
-            })
+            this.loginTipsShow ('请输入用户名!');
+            return;
         }else if(!( userInfo.pwd.length > 0)){
-            this.setState({
-                loginTips:'请输入密码'
-            })
+            this.loginTipsShow ('请输入密码!');
+            return;
         }
+        this.props.login(this.state.userInfo.user,this.state.userInfo.pwd)
+    }
+    loginTipsShow (loginTips) {
+        this.setState({
+            loginTips
+        },()=>{
+            let showTime = setTimeout(()=>{
+                this.setState({
+                    loginTips:''
+                })
+            },1500)
+        })
     }
     userInput (type,val) {
         let userInfo = this.state.userInfo;
@@ -39,8 +57,12 @@ class Login extends React.Component{
         })
     }
     render(){
+        let path = this.props.location.pathname;
+        let redirectPath = this.props.redirectTo;
+        let whetherRedirect = ((path === redirectPath || redirectPath =='') && ( path ==='/') || path ==='/login' )
         return (
             <div className='top'>
+                {redirectPath ? <Redirect to={redirectPath} />: null }
                 <Authroute></Authroute>
                 <Logo></Logo>
                 <h2>登录页面</h2>

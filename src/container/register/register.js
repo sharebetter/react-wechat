@@ -80,9 +80,11 @@ class Register extends React.Component{
             { type:'Boss', label:'Boss'},
         ];
         let identity = this.state.userInfo.identity;
+        let path = this.props.location.pathname;
+        let redirectPath = this.props.redirectTo;
         return (
             <div className='registerTop'>
-                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} />:null}
+                {redirectPath ? <Redirect to={redirectPath} />: null }
                 <Logo/>
                 <h2>用户注册</h2>
                 {this.state.registTips ? <p className='registTips'>{this.state.registTips}</p>:null}

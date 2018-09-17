@@ -4,31 +4,20 @@ const utils = require('utility');
 const Router = express.Router();
 const model =  require('../model/user.js');
 const User = model.getModel('user');
-Router.post('/register',(req,res)=>{
-    let userInfo = req.body.userInfo;
-    User.findOne({user:userInfo.user},(err,find_result)=>{
-        if(find_result){
-            return res.json({code:1,msg:'该用户名已存在！'});
+const Filter = {'pwd':0, '__v':0}
+Router.get('/info',(req,res)=>{
+    const { userId } = req.cookies;
+    if(!userId){
+        return res.json({code:1})
+    }
+    User.findOne({'_id':userId},Filter).then((result)=>{
+        if(result){
+            res.json({code:0, msg:'获取用户信息成功', userInfo:result})
         }else{
-            User.create({
-                user:userInfo.user,
-                pwd: md5Pwd(userInfo.pwd),
-                identity:userInfo.identity
-            },(err,create_result)=>{
-                if(err){
-                    return res.json({code:1,msg:'后端出错'})
-                }
-                if(create_result){
-                    return res.json({code:0,msg:'注册成功'})
-                }
-            })
+            res.json({code:1, msg:'获取用户信息失败'})
+            // return res.redirect('/')
         }
-    })
 
+    })
 })
-function md5Pwd (pwd) {
-    let salt = 'password';
-    pwd = salt + pwd;
-    return utils.md5(pwd);
-}
 module.exports = Router;
