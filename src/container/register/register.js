@@ -5,6 +5,8 @@ import Logo from '../../component/logo/logo';
 import './register.css';
 import {Button, InputItem, WhiteSpace, Radio, Flex, List} from 'antd-mobile';
 import {register} from '../../redux/user.redux.js';
+import Authroute from '../../component/authroute/authroute';
+import Avator from '../../component/avator/avator';
 const RadioItem = Radio.RadioItem;
 @connect(
     state => state.user,
@@ -84,6 +86,7 @@ class Register extends React.Component{
         let redirectPath = this.props.redirectTo;
         return (
             <div className='registerTop'>
+                {/* <Authroute /> */}
                 {redirectPath ? <Redirect to={redirectPath} />: null }
                 <Logo/>
                 <h2>用户注册</h2>

@@ -8,6 +8,7 @@ import Login from './container/login/login';
 import Register from './container/register/register';
 import BossInfo from './container/userInfo/bossInfo';
 import JobSeekerInfo from './container/userInfo/jobSeekerInfo';
+import './index.css';
 
 import reducers from './reducer';
 import './config';

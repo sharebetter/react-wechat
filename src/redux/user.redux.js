@@ -3,6 +3,8 @@ import { redirectTo } from '../util/util.js';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
+const AUTOROUTER = 'AUTOROUTER';
+const INFOINPUT = "INFOINPUT";
 const initState = {
     isLogin:'',
     msg:'',
@@ -18,12 +20,21 @@ export function user(state=initState,action) {
         case LOGIN_SUCCESS:
             return {...state,isLogin:true,redirectTo: redirectTo(action.userInfo), ...action.userInfo,msg:'登录成功！'}
         case ERROR_MSG:
-            return {...state, isLogin:false,msg:action.msg}
+            return {...state, isLogin:false,msg:action.msg};
+        case AUTOROUTER:
+            return {...state,isLogin:true,redirectTo: redirectTo(action.userInfo),...action.userInfo,msg:'自动登陆成功！'}
+        case INFOINPUT:
+            return {...state, ...action.userInfo, msg:''}
         default:
             return state;
     }
 }
-
+function userInfo(data) {
+    return ({userInfo:data, type:INFOINPUT})
+}
+function autoRouterSuccess (data){
+    return ({userInfo:data.userInfo,type:AUTOROUTER});
+}
 function registerSuccess (data) {
     return {userInfo:data,type:REGISTER_SUCCESS}
 }
@@ -67,5 +78,23 @@ export function login (user, pwd){
                 }
             }
         )
+    }
+}
+
+export function autoRouter (data) {
+    return dispatch => {
+        dispatch(autoRouterSuccess(data))
+    }
+}
+
+export function infoUpdate (data) {
+    console.log(data)
+    return dispatch => {
+        // axios.push('/user/addInfo',{data}).then(
+        //     res=>{
+        //         console.log(res);
+        //         dispatch(userInput(data))
+        //     }
+        // )
     }
 }

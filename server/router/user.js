@@ -5,6 +5,9 @@ const Router = express.Router();
 const model =  require('../model/user.js');
 const User = model.getModel('user');
 const Filter = {'pwd':0, '__v':0}
+Router.get('/',(req,res)=>{
+    res.redirect('/user/info');
+})
 Router.get('/info',(req,res)=>{
     const { userId } = req.cookies;
     if(!userId){
