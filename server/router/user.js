@@ -23,4 +23,17 @@ Router.get('/info',(req,res)=>{
 
     })
 })
+Router.post('/addInfo',(req,res)=>{
+    let userId = req.cookies.userId;
+    let { data } = req.body;
+    if(!userId){
+        res.json({code:1})
+    }
+    User.findByIdAndUpdate(userId,data).then(res=>{
+        if(res){
+           var resData = Object.assign({},res.user,res.type,data);
+            res.json({code: 0, resData, msg:"信息修改成功！"})
+        }
+    })
+})
 module.exports = Router;

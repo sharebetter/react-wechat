@@ -29,7 +29,7 @@ export function user(state=initState,action) {
             return state;
     }
 }
-function userInfo(data) {
+function userInput(data) {
     return ({userInfo:data, type:INFOINPUT})
 }
 function autoRouterSuccess (data){
@@ -88,13 +88,12 @@ export function autoRouter (data) {
 }
 
 export function infoUpdate (data) {
-    console.log(data)
     return dispatch => {
-        // axios.push('/user/addInfo',{data}).then(
-        //     res=>{
-        //         console.log(res);
-        //         dispatch(userInput(data))
-        //     }
-        // )
+        axios.post('/user/addInfo',{data}).then(
+            res=>{
+                console.log(res);
+                dispatch(userInput(data))
+            }
+        )
     }
 }

@@ -1,8 +1,15 @@
 import React from 'react';
 import {List, Grid, InputItem, WhiteSpace ,TextareaItem, Button} from 'antd-mobile';
 import Avator from '../../component/avator/avator';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Authroute from '../../component/authroute/authroute';
 import './userInfo.css';
+import {infoUpdate} from '../../redux/user.redux.js';
+@connect(
+    state => state.user,
+    { infoUpdate }
+)
 class JobSeekInfo extends React.Component{
     constructor (props) {
         super(props);
@@ -11,6 +18,7 @@ class JobSeekInfo extends React.Component{
             name:'',
             introduction:'',
             salary:'',
+            avator:'',
             infoTips:''
         }
     }
@@ -26,13 +34,23 @@ class JobSeekInfo extends React.Component{
                  clearTimeout(tips);
                 }, 1500);
             })
-
+            return;
         }
+        let {infoTips, ...infoData} = this.state
+        this.props.infoUpdate(infoData)
+    }
+    avatorChange (avator) {
+        this.setState({
+            avator
+        })
     }
     render () {
+        let path = this.props.location.pathname;
+        let redirect =  this.props.redirectTo;
         return (
             <div>
-                <Avator></Avator>
+                {redirect && redirect!==path ?<Redirect to={this.props.redirectTo} />:null}
+                <Avator avatorChange = {(avatorInfo)=>this.avatorChange(avatorInfo)} ></Avator>
                 <WhiteSpace/>
                 {this.state.infoTips.length > 0 ? <p className='infoTips'>{this.state.infoTips}</p>:null}
                 <InputItem placeholder="" clear

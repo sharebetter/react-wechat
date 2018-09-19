@@ -17,6 +17,7 @@ class Avator extends React.Component {
         this.setState({
             avatorInfo
         })
+        this.props.avatorChange(avatorInfo.text);
     }
     render () {
         let avatorArr = this.state.avator.split(',');

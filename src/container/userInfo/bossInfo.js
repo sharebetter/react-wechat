@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {List, Grid, InputItem, WhiteSpace ,TextareaItem, Button} from 'antd-mobile';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Avator from '../../component/avator/avator';
 import './userInfo.css';
 import {infoUpdate} from '../../redux/user.redux.js';
@@ -17,8 +18,14 @@ class BossInfo extends React.Component{
             componyName:'',
             jobRequest:'',
             componyInfo:'',
+            avator:'',
             infoTips:''
         }
+    }
+    avatorChange (avator) {
+        this.setState({
+            avator
+        })
     }
     userInput (type,val) {
         this.setState ({
@@ -39,14 +46,16 @@ class BossInfo extends React.Component{
             })
             return;
         }
-        let {infoTips, ...infoData} = this.state
-        console.log(infoData)
+        let {infoTips, ...infoData} = this.state;
         this.props.infoUpdate(infoData)
     }
     render () {
+        let path = this.props.location.pathname;
+        let redirect =  this.props.redirectTo;
         return (
             <div>
-                <Avator></Avator>
+                {redirect && redirect!==path ?<Redirect to={this.props.redirectTo} />:null}
+                <Avator avatorChange={(avatorInfo)=>this.avatorChange(avatorInfo)}></Avator>
                 <WhiteSpace/>
                 {this.state.infoTips.length > 0 ? <p className='infoTips'>{this.state.infoTips}</p>:null}
                 <InputItem placeholder="" clear
