@@ -13,10 +13,11 @@ const models = {
         'avatar':{'type':String},
         //简介
         'descript':{'type':String},
+        'name':{'type':String},
         //职位名
         'position':{'type':String},
         // 如果是boss 还有两个字段
-        'component':{'type':String},
+        'componeny':{'type':String},
         'money':{'type':String}
     },
     chat: {

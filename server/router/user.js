@@ -29,10 +29,13 @@ Router.post('/addInfo',(req,res)=>{
     if(!userId){
         res.json({code:1})
     }
-    User.findByIdAndUpdate(userId,data).then(res=>{
-        if(res){
-           var resData = Object.assign({},res.user,res.type,data);
+    User.findByIdAndUpdate(userId,data).then(result=>{
+        if(result){
+           var resData = Object.assign({},{identity:result.identity},data);
+           console.log(resData)
             res.json({code: 0, resData, msg:"信息修改成功！"})
+        }else{
+            res.json({code: 1, msg:"信息修改失败！"})
         }
     })
 })

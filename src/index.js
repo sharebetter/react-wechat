@@ -8,6 +8,7 @@ import Login from './container/login/login';
 import Register from './container/register/register';
 import BossInfo from './container/userInfo/bossInfo';
 import JobSeekerInfo from './container/userInfo/jobSeekerInfo';
+import Dash from './component/Dashboard/dashboard';
 import './index.css';
 
 import reducers from './reducer';
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Route path="/register" component={Register}/>
                 <Route path="/bossInfo" component={BossInfo} />
                 <Route path="/jobSeekerInfo" component={JobSeekerInfo} />
+                <Route component={Dash}></Route>
             </Switch>
         </BrowserRouter>
     </Provider>),

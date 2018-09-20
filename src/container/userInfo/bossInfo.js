@@ -14,10 +14,9 @@ class BossInfo extends React.Component{
     constructor (props) {
         super(props);
         this.state = {
-            jobKind:'',
-            componyName:'',
-            jobRequest:'',
-            componyInfo:'',
+            position:'',
+            descript:'',
+            componeny:'',
             avator:'',
             infoTips:''
         }
@@ -33,7 +32,7 @@ class BossInfo extends React.Component{
         })
     }
     infoPost () {
-        if(this.state.jobKind == ''){
+        if(this.state.position == ''){
             this.setState({
                 infoTips: '请输入招聘职位'
             },()=>{
@@ -47,6 +46,9 @@ class BossInfo extends React.Component{
             return;
         }
         let {infoTips, ...infoData} = this.state;
+        if(this.state.avator.length == 0){
+            infoData.avator='boy'
+        }
         this.props.infoUpdate(infoData)
     }
     render () {
@@ -59,25 +61,25 @@ class BossInfo extends React.Component{
                 <WhiteSpace/>
                 {this.state.infoTips.length > 0 ? <p className='infoTips'>{this.state.infoTips}</p>:null}
                 <InputItem placeholder="" clear
-                    onChange={(val) => { this.userInput ('jobKind',val)}}
+                    onChange={(val) => { this.userInput ('position',val)}}
                 >招聘职位：</InputItem>
                 <WhiteSpace/>
 
                 <InputItem placeholder="" clear
-                    onChange={(val) => { this.userInput ('componyName',val)}}
+                    onChange={(val) => { this.userInput ('componeny',val)}}
                 >公司名称：</InputItem>
                 <WhiteSpace/>
 
                  <TextareaItem placeholder="" title="职位要求"
                     autoHeight labelNumber={5} clear
-                    onChange={(val) => this.userInput ('jobRequest',val) }
+                    onChange={(val) => this.userInput ('descript',val) }
                 />
                 <WhiteSpace/>
 
-                <TextareaItem placeholder="" title="公司简介"
+                {/* <TextareaItem placeholder="" title="公司简介"
                 autoHeight labelNumber={5} clear
                     onChange={(val) => this.userInput ('componyInfo',val)}
-                />
+                /> */}
                 <WhiteSpace></WhiteSpace>
 
                 <Button type="primary" onClick={()=>this.infoPost()}>完成</Button>

@@ -44,7 +44,7 @@ class Avator extends React.Component {
                     leftContent="Back"
                     >用户信息</NavBar>
                     <List renderHeader={avatorSelect}>
-                        <Grid data={avatorData} isCarousel columnNum={4} onClick={_el => this.avatorPick(_el)} />
+                        <Grid data={avatorData} columnNum={5} onClick={_el => this.avatorPick(_el)} />
                     </List>
             </div>
         )

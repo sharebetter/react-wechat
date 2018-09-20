@@ -31,7 +31,7 @@ Router.post('/login',(req,res)=>{
     User.findOne({user, pwd:md5Pwd(pwd)},{'pwd': 0},(err,find_result)=>{
         if(find_result){
             res.cookie('userId', find_result._id);
-            return res.json({code:0, msg:'登录成功！'})
+            return res.json({code:0, msg:'登录成功！',data:find_result})
         }else{
             return res.json({code:1, msg:'用户名或密码错误'})
         }

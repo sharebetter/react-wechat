@@ -14,16 +14,17 @@ class JobSeekInfo extends React.Component{
     constructor (props) {
         super(props);
         this.state = {
-            jobKind:'',
-            name:'',
-            introduction:'',
-            salary:'',
+            position:'',
+            descript:'',
+            componeny:'',
             avator:'',
+            money:'',
+            name:'',
             infoTips:''
         }
     }
     infoPost () {
-        if(this.state.jobKind == ''){
+        if(this.state.position == ''){
             this.setState({
                 infoTips: '请输入应聘职位'
             },()=>{
@@ -36,8 +37,17 @@ class JobSeekInfo extends React.Component{
             })
             return;
         }
-        let {infoTips, ...infoData} = this.state
+
+        let {infoTips, ...infoData} = this.state;
+        if(this.state.avator.length == 0){
+            infoData.avator='boy'
+        }
         this.props.infoUpdate(infoData)
+    }
+    userInput (type,val) {
+        this.setState ({
+            [type]: val
+        })
     }
     avatorChange (avator) {
         this.setState({
@@ -54,24 +64,24 @@ class JobSeekInfo extends React.Component{
                 <WhiteSpace/>
                 {this.state.infoTips.length > 0 ? <p className='infoTips'>{this.state.infoTips}</p>:null}
                 <InputItem placeholder="" clear
-                    onChange={(val) => { this.userInput ('jobKind',val)}}
+                    onChange={(val) => { this.userInput ('position',val)}}
                 >应聘职位：</InputItem>
                 <WhiteSpace/>
 
                 <InputItem placeholder="" clear
-                    onChange={(val) => { this.userInput ('componyName',val)}}
+                    onChange={(val) => { this.userInput ('name',val)}}
                 >姓名：</InputItem>
                 <WhiteSpace/>
 
                 <TextareaItem placeholder="" title="简介"
                     autoHeight labelNumber={5} clear
-                    onChange={(val) => this.userInput ('jobRequest',val) }
+                    onChange={(val) => this.userInput ('descript',val) }
                 />
                 <WhiteSpace/>
 
                 <TextareaItem placeholder="" title="期望薪资"
                 autoHeight labelNumber={5} clear
-                    onChange={(val) => this.userInput ('componyInfo',val)}
+                    onChange={(val) => this.userInput ('money',val)}
                 />
                 <WhiteSpace></WhiteSpace>
 

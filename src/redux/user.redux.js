@@ -9,7 +9,8 @@ const initState = {
     isLogin:'',
     msg:'',
     user:'',
-    identity:''
+    identity:'',
+    redirectTo:''
 }
 
 //reducer
@@ -24,7 +25,7 @@ export function user(state=initState,action) {
         case AUTOROUTER:
             return {...state,isLogin:true,redirectTo: redirectTo(action.userInfo),...action.userInfo,msg:'自动登陆成功！'}
         case INFOINPUT:
-            return {...state, ...action.userInfo, msg:''}
+            return {...state, redirectTo: redirectTo(action.userInfo), ...action.userInfo, msg:''}
         default:
             return state;
     }
@@ -72,7 +73,7 @@ export function login (user, pwd){
         axios.post('/login',{userInfo}).then(
             res => {
                 if(res.status == 200 && res.data.code === 0){
-                    dispatch(loginSuccess({user,pwd}))
+                    dispatch(loginSuccess(res.data.data))
                 }else{
                     dispatch(errorMsg(res.data.msg))
                 }
@@ -91,8 +92,7 @@ export function infoUpdate (data) {
     return dispatch => {
         axios.post('/user/addInfo',{data}).then(
             res=>{
-                console.log(res);
-                dispatch(userInput(data))
+                dispatch(userInput(res.data.resData));
             }
         )
     }
