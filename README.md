@@ -1,4 +1,4 @@
-👉 GitHub: https://github.com/majunchang/reachChatApp
+👉 GitHub: https://github.com/sharebetter/react-wechat
 
 
 #####  基于==React(16.x)== 全家桶制作的一款实时聊天app，采用组件化，模块化的开发方式，用到了==react-redux==等插件，使用==antd-mobile==的ui框架。
@@ -52,7 +52,7 @@
 
 //  开启mongodb数据库服务
 //  将项目地址完整的clone下来 
-    git clone https://github.com/majunchang/reachChatApp
+    git clone https://github.com/sharebetter/react-wechat
 //  进入到项目文件夹  安装相关依赖
     cd reatChatApp 
     npm install
@@ -68,7 +68,7 @@
 ```
 //  开启mongodb数据库服务
 //  将项目地址完整的clone下来 
-    git clone https://github.com/majunchang/reachChatApp
+    git clone https://github.com/sharebetter/react-wechat
 //  进入到项目文件夹  安装相关依赖
     cd reatChatApp 
     npm install
