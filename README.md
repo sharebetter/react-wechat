@@ -79,10 +79,3 @@
 
 ```
 
-
-
-
-
-<div align=center>
-<img width="300" height="300" src="http://oneg19f80.bkt.clouddn.com/18-3-16/36877665.jpg">
-</div>
