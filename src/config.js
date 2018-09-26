@@ -1,14 +1,13 @@
-import axios from 'axios';
-import {Toast} from 'antd-mobile';
+import axios from 'axios'
+import {Toast} from 'antd-mobile'
 
-axios.interceptors.request.use((config)=>{
-    Toast.loading('加载中',0);
-    return config;
+// 在这里增加拦截器的功能  拦截发送请求和响应请求
+axios.interceptors.request.use(function (config) {
+  Toast.loading('数据加载中,请稍候')
+  return config
 })
 
-axios.interceptors.response.use((config)=>{
-    setTimeout(()=>{
-        Toast.hide()
-    },2000)
-    return config;
+axios.interceptors.response.use(function (config) {
+  Toast.hide()
+  return config
 })

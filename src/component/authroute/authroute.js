@@ -1,33 +1,40 @@
-import React from 'react';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { autoRouter } from '../../redux/user.redux'
+import React from 'react'
+import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+import {loadData} from '../../redux/userRedux'
+import {connect} from 'react-redux'
 
 @withRouter
-@connect (
-    state => state.user,
-    { autoRouter }
+@connect(
+    null,
+    {loadData}
 )
-class Authroute extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
 
-        }
+
+class AuthRoute extends React.Component {
+    componentDidMount() {
+        console.log('要发送检测请求le')
+        axios.get('/user/info')
+            .then((res) => {
+                if (res.data.code === 0) {
+                    this.props.loadData(res.data.data)
+                } else {
+                    //  如果没有登录信息
+                    this.props.history.push('/login');
+                }
+            })
     }
-    componentDidMount () {
-        axios.get('/user').then(res=>{
-            let data = res.data;
-            if(res.status == '200' && data.code === 0){
-                this.props.autoRouter(res.data)
-            }else{
-                this.props.history.push('/')
-            }
-        })
-    }
-    render () {
-        return null;
+
+    render() {
+        return null
     }
 }
-export default Authroute;
+
+export default AuthRoute
+
+/*
+  这个AuthRoute组件   并不是一个路由组件 直接获取this.props是一个空对象
+
+   为了我们能够在这个组件的方法中 控制路由的跳转    react-router-dom  提供了一个WithRouter的api  让我们可以获取到路由元信息
+ */
+
